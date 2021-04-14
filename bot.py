@@ -2,11 +2,19 @@ import requests
 from bs4 import BeautifulSoup
 import time
 import facebook
+import threading
+from flask import Flask
+import waitress
+import os
+import json
+
+#app
+app = Flask(__name__)
 
 #VARIABLES
-# GDRIVEURL = ""
-# SITE = ""
-# FB_ACCESS_TOKEN = ""
+#GDRIVEURL = ""
+#SITE = ""
+#FB_ACCESS_TOKEN = ""
 
 #Fetch all the data from Google Sheet
 def GoogleSheetDB():
@@ -74,8 +82,20 @@ def main():
             # print(item['meta_description'])
             s = updateFacebookPost(item['meta_description'], item['link'])
             InsertToGoogleSheet(item['link'])
-
+    print("Main Thread Completed...")
     return
 
+
+@app.route("/")
+def index():
+    th = threading.Thread(target=main)
+    th.start()
+    return json.dumps({
+        "Status": 200,
+        "message": "{} Thread Started...".format(threading.current_thread().ident)
+    })
+
 if __name__ == "__main__":
-    main()
+    app.debug = False
+    port = int(os.environ.get('PORT', 33507))
+    waitress.serve(app, port=port)
