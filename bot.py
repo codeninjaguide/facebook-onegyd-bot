@@ -68,7 +68,7 @@ def main():
                 "meta_description": meta_description
             })
     
-    if len(new_post) != 0:  
+    if len(new_post) > 0:  
         for item in new_post:
             # print(item['link'])
             # print(item['meta_description'])
