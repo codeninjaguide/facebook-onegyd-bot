@@ -76,3 +76,6 @@ def main():
             InsertToGoogleSheet(item['link'])
 
     return
+
+if __name__ == "__main__":
+    main()
