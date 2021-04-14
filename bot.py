@@ -12,9 +12,9 @@ import json
 app = Flask(__name__)
 
 #VARIABLES
-#GDRIVEURL = ""
-#SITE = ""
-#FB_ACCESS_TOKEN = ""
+GDRIVEURL = os.environ.get('GDRIVEURL')
+SITE = os.environ.get('SITE')
+FB_ACCESS_TOKEN = os.environ.get('FB_ACCESS_TOKEN')
 
 #Fetch all the data from Google Sheet
 def GoogleSheetDB():
