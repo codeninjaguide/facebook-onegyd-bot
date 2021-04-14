@@ -35,7 +35,7 @@ def InsertToGoogleSheet(link):
 #Scrape data from onegyd post-sitemap.xml
 def ScrapeSitemapXml():
     SCRAPED_XML = list()
-    soup = BeautifulSoup(requests.get(SITE).text, 'lxml')
+    soup = BeautifulSoup(requests.get(SITE).text, 'html.parser')
     for loc in soup.select('url > loc'):
         SCRAPED_XML.append(loc.text)  
     return SCRAPED_XML
@@ -55,7 +55,7 @@ def updateFacebookPost(m, l):
 
 #Meta description scraping
 def ScrapeMetaContent(link):
-    soup = BeautifulSoup(requests.get(link).text, 'lxml')
+    soup = BeautifulSoup(requests.get(link).text, 'html.parser')
     desc = soup.find("meta",  property="og:description")
     desc_data = desc["content"] if desc else "No meta title given"
     return desc_data
